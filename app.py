@@ -48,7 +48,7 @@ with st.sidebar:
     selected_gu = st.selectbox("자치구 선택", ["전체"] + gu_list)
 
     st.divider()
-    st.caption("Data Source: 서울시 상권분석 서비스")
+    st.caption("Data Source: 서울시공공데이터 상권분석")
 
 # --- 메인 화면 ---
 st.title("📊 서울시 자치구별 상권 분석")
@@ -57,14 +57,16 @@ st.markdown(f"### 📍 {selected_gu} 상권 현황")
 # 종합 인사이트
 if selected_gu == "전체":
     st.info("""
-    **데이터 종합 요약 ** 
+     
     2024년 서울시 상권은 전반적으로 주중 매출 비중이 높게 나타나, 주말 여가 소비보다 평일 업무·생활 소비 중심의 구조가 강합니다.  
     또한 자치구별 객단가와 경제활동인구 1명당 매출은 총매출 순위와 다르게 나타나, 단순 매출 규모뿐 아니라 소비 단가와 인구 대비 상권 활성도도 함께 볼 필요가 있습니다.  
     폐업 위험 업종은 일부 오락·교육·특수 소비 업종에서 높게 나타나, 업종별 안정성 차이도 확인할 수 있습니다. 
+    
     """)
 else:
     st.info(f"""
-    **종합 인사이트**  
+    인사이트
+    
     현재 선택한 지역은 {selected_gu}입니다.  
     아래 차트에서는 {selected_gu}의 주중·주말 매출 구조, 폐업 위험 업종, 객단가 수준을 서울시 전체 자치구와 비교할 수 있습니다.  
     이를 통해 해당 자치구가 평일형 상권인지, 주말 소비 비중이 높은 상권인지, 또는 객단가와 인구 대비 매출 측면에서 경쟁력이 있는지를 확인할 수 있습니다.
@@ -109,13 +111,15 @@ with col1:
 
             if weekday_ratio > weekend_ratio:
                 st.info(f"""
-                **인사이트**  
+                인사이트  
+                
                 {selected_gu} 기준 주중 매출 비중은 {weekday_ratio:.1f}%, 주말 매출 비중은 {weekend_ratio:.1f}%입니다.  
                 주중 매출 비중이 더 높아, 해당 상권은 평일 업무·생활 소비의 영향을 더 크게 받는 구조로 볼 수 있습니다.
                 """)
             else:
                 st.info(f"""
-                **인사이트**  
+                인사이트  
+                
                 {selected_gu} 기준 주말 매출 비중은 {weekend_ratio:.1f}%, 주중 매출 비중은 {weekday_ratio:.1f}%입니다.  
                 주말 매출 비중이 상대적으로 높아, 여가·방문 소비 성격이 강한 상권으로 해석할 수 있습니다.
                 """)
@@ -151,7 +155,8 @@ with col2:
 
     if selected_gu == "전체":
         st.info(f"""
-        **인사이트**  
+        인사이트 
+        
         2024년 기준 객단가가 가장 높은 자치구는 {top_gu}, 평균 객단가는 약 {top_price:,.0f}원입니다.  
         객단가는 총매출과 달리 1건당 평균 소비금액을 보여주므로, 고가 소비 업종이나 단가가 높은 상권의 특징을 파악하는 데 유용합니다.
         """)
@@ -161,7 +166,8 @@ with col2:
             selected_price = selected_row.iloc[0]['객단가']
             selected_rank = selected_row.index[0] + 1
             st.info(f"""
-            **인사이트**  
+            인사이트
+            
             {selected_gu}의 객단가는 약 {selected_price:,.0f}원이며, 서울시 25개 자치구 중 {selected_rank}위입니다.  
             총매출 규모와 별개로, 해당 지역에서 한 번 결제할 때 평균적으로 어느 정도 소비가 발생하는지 확인할 수 있습니다.
             """)
@@ -207,13 +213,15 @@ with col3:
 
         if selected_gu == "전체":
             st.warning(f"""
-            **인사이트**  
+            인사이트 
+            
             서울시 전체 기준 폐업률이 가장 높게 나타난 업종은 {top_industry}이며, 평균 폐업률은 {top_close_rate:.2f}%입니다.  
             폐업률은 업종별 안정성을 보여주는 지표이지만, 점포 규모가 작은 업종은 수치가 크게 흔들릴 수 있으므로 점포 수와 함께 해석해야 합니다.
             """)
         else:
             st.warning(f"""
-            **인사이트**  
+            인사이트
+            
             {selected_gu}에서 폐업률이 가장 높게 나타난 업종은 {top_industry}이며, 평균 폐업률은 {top_close_rate:.2f}%입니다.  
             해당 업종은 선택 자치구 내에서 상대적으로 폐업 위험이 높은 업종으로 볼 수 있습니다.
             """)
@@ -265,7 +273,8 @@ with col4:
 
     if selected_gu == "전체":
         st.info(f"""
-        **인사이트**  
+        인사이트
+        
         경제활동인구 1명당 매출이 가장 높은 자치구는 {top_pop_gu}이며, 1명당 매출은 약 {top_pop_sales:,.0f}원입니다.  
         이 지표는 단순 총매출이 아니라 경제활동인구 규모 대비 상권이 얼마나 큰 매출을 만들어내는지를 보여줍니다.
         """)
@@ -275,9 +284,11 @@ with col4:
             selected_pop_sales = selected_pop.iloc[0]['인당매출']
             selected_pop_rank = selected_pop.index[0] + 1
             st.info(f"""
-            **인사이트**  
+            인사이트
+            
             {selected_gu}의 경제활동인구 1명당 매출은 약 {selected_pop_sales:,.0f}원이며, 서울시 25개 자치구 중 {selected_pop_rank}위입니다.  
             이 값이 높을수록 해당 지역은 내부 경제활동인구 규모에 비해 상권 매출이 크게 형성된 지역으로 볼 수 있습니다.
+            
             """)
 
 st.caption("Data Source: 서울시 열린데이터광장 상권분석서비스, 경제활동인구 데이터")
